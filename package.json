@@ -1,0 +1,41 @@
+{
+  "name": "ehtml-simple-blog-app",
+  "version": "1.0.0",
+  "description": "Simple EHTML blog app",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build",
+    "start": "node src/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guseyn/ehtml-simple-blog-app.git"
+  },
+  "author": "guseyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Guseyn/ehtml-simple-blog-app/issues"
+  },
+  "homepage": "https://github.com/Guseyn/ehtml-simple-blog-app#readme",
+  "dependencies": {
+    "@cuties/created": "^1.0.1",
+    "@cuties/cutie": "^1.7.3",
+    "@cuties/http": "^1.3.3",
+    "@cuties/https": "^1.1.3",
+    "@cuties/if-else": "^1.1.0",
+    "@cuties/is": "^1.1.0",
+    "@cuties/object": "^1.1.4",
+    "@cuties/rest": "^1.2.6",
+    "@cuties/wall": "^1.1.0",
+    "mongodb": "^3.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.11.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
