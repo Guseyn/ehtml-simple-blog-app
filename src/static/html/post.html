@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Blog App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Guseyn">
+    <link rel="shortcut icon" type="image/png" href="/../image/favicon.png">
+    <link rel="stylesheet" href="/../css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="/../css/main.css" type="text/css">
+    <script src="/../js/ehtml.js" type="text/javascript"></script>
+  </head>
+
+  <body class="main">
+    <div class="base">
+      
+      <template is="e-page-with-url" data-url-pattern="/html/post.html?id={id}">
+        <div class="blog-box">
+          
+          <e-json 
+            data-src="/../post?id=${urlParams.id}" 
+            data-ajax-icon="#post-ajax-icon"
+            data-response-name="postResponse"
+            data-actions-on-response="mapToTemplate('${postResponse}', '#post-template');">
+            <img class="ajax-icon" id="post-ajax-icon" src="/../images/ajax-icon.svg"/>
+
+            <template id="post-template" data-object-name="postResponse">
+              <template is="e-if" data-condition-to-display="${postResponse.statusCode === 404}">
+                <div class="not-found">Post Not Found</div>
+              </template>
+
+              <template is="e-if" data-condition-to-display="${postResponse.statusCode === 200}">
+                <div class="post-box">
+                  <div class="title" data-text="${postResponse.body.title}"></div>
+                  <div class="user-email" data-text="${postResponse.body.userEmail}"></div>
+                  <div class="date" data-text="${postResponse.body.date}"></div>
+                  <div class="content" data-text="${postResponse.body.content}"></div>
+                </div>
+                <div class="comments-box">
+                    <template is="e-if" data-condition-to-display="${postResponse.body.comments.length === 0}">
+                      No Comments yet. Be the first to comment.
+                    </template>
+                    <template is="e-if" data-condition-to-display="${postResponse.body.comments.length !== 0}">
+                      <b>Comments:</b>
+                      <template is="e-for-each" data-list-to-iterate="${postResponse.body.comments}" data-item-name="comment">
+                        <div class="comment-box">
+                          <div class="user-email" data-text="${comment.userEmail}"></div> 
+                          <div class="comment-content" data-text="${comment.content}"></div> 
+                        </div>
+                      </template>
+                    </template>
+                    
+                    <e-form 
+                      style="margin-top: 2em;"
+                      data-validation-error-message="Enter correct data into the form, please"
+                      data-validation-error-class-for-message-box="form-message-error">
+                      <div class="input-label">Your email</div>
+                      <input
+                        type="email" 
+                        name="userEmail"
+                        required
+                        data-validation-pattern="email"
+                        data-validation-bad-format-error-message="This is not proper email address"
+                        data-validation-absence-error-message="Email is required"
+                        data-validation-error-class-for-element="elm-error"
+                        data-validation-error-class-for-message-box="message-error">
+
+                      <div class="input-label">Comment</div>
+                      <textarea 
+                        required
+                        data-validation-error-class-for-element="elm-error"
+                        data-validation-error-class-for-message-box="message-error"
+                        name="content"></textarea>
+
+                      <button
+                        data-request-url="/../comment/new?postId=${postResponse.body.id}"
+                        data-request-method="POST"
+                        data-ajax-icon="#comment-ajax-icon"
+                        data-response-name="response"
+                        onclick="this.form.submit(this)"
+                        data-actions-on-response="turboRedirect('/../html/post.html?id=${response.body.postId}')"
+                      >
+                        Post
+                      </button>
+                      <img class="ajax-icon" id="comment-ajax-icon" src="/../images/ajax-icon.svg"/>
+
+                    </e-form>
+                </div>
+              </template>
+            </template>
+
+          </e-json>
+
+        </div>
+        <e-turbolink class="page-link" data-href="/../html/posts.html?page=0&size=3">Go To All Posts</e-turbolink>
+      </template>
+
+    </div>
+  </body>
+</html>

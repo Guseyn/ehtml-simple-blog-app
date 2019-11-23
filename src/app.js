@@ -12,7 +12,6 @@ const AddPostEndpoint = require('./endpoints/AddPostEndpoint')
 const FetchPostEndpoint = require('./endpoints/FetchPostEndpoint')
 const AddCommentEndpoint = require('./endpoints/AddCommentEndpoint')
 const FetchPostsEndpoint = require('./endpoints/FetchPostsEndpoint')
-const FetchCommentsEndpoint = require('./endpoints/FetchCommentsEndpoint')
 const BlogStorage = require('./storage/BlogStorage')
 const path = require('path')
 
@@ -31,10 +30,9 @@ new Created(
       new CustomIndexEndpoint('./src/static/html/index.html', notFoundEndpoint),
       new ServingFilesEndpoint(/^\/(html|css|js|images)(\?(.+))?/, mapper, {}, notFoundEndpoint),
       new Created(AddPostEndpoint, /^\/post\/new/, 'POST', as('BLOG_STORAGE')),
-      new Created(FetchPostEndpoint, /^\/post\?index=(\d+)/, 'GET', as('BLOG_STORAGE')),
+      new Created(FetchPostEndpoint, /^\/post\?id=(\d+)/, 'GET', as('BLOG_STORAGE')),
       new Created(FetchPostsEndpoint, /^\/posts(\?page=(\d+))?(&size=(\d+))?/, 'GET', as('BLOG_STORAGE')),
-      new Created(AddCommentEndpoint, /^\/comment\/new\?index=(\d+)/, 'POST', as('BLOG_STORAGE')),
-      new Created(FetchCommentsEndpoint, /^\/comments\?index=(\d+)(&page=(\d+))?(&size=(\d+))?/, 'GET', as('BLOG_STORAGE')),
+      new Created(AddCommentEndpoint, /^\/comment\/new\?postId=(\d+)/, 'POST', as('BLOG_STORAGE')),
       notFoundEndpoint,
       internalServerErrorEndpoint
     )

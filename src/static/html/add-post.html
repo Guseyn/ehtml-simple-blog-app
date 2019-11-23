@@ -1,0 +1,57 @@
+<div class="blog-box">
+  
+  <div class="title">Add new post</div>
+
+  <e-form
+    data-validation-error-message="Enter correct data into the form, please"
+    data-validation-error-class-for-message-box="form-message-error">
+    <div class="input-label">Your email</div>
+    <input
+      type="email" 
+      name="userEmail"
+      required
+      data-validation-pattern="email"
+      data-validation-bad-format-error-message="This is not proper email address"
+      data-validation-absence-error-message="Email is required"
+      data-validation-error-class-for-element="elm-error"
+      data-validation-error-class-for-message-box="message-error">
+
+    <div class="input-label">Date</div>
+    <input
+      type="date"
+      name="date"
+      required
+      data-validation-pattern="date"
+      data-validation-absence-error-message="Post date is required"
+      data-validation-error-class-for-element="elm-error"
+      data-validation-error-class-for-message-box="message-error">
+
+    <div class="input-label">Title</div>
+    <input
+      type="text"
+      name="title"
+      required
+      data-validation-error-class-for-element="elm-error"
+      data-validation-error-class-for-message-box="message-error">
+
+    <div class="input-label">Content</div>
+    <textarea
+      name="content"
+      required
+      data-validation-error-class-for-element="elm-error"
+      data-validation-error-class-for-message-box="message-error"></textarea>
+
+    <button
+      data-request-url="/../post/new/"
+      data-request-method="POST"
+      data-ajax-icon=".ajax-icon"
+      data-response-name="response"
+      onclick="this.form.submit(this)"
+      data-actions-on-response="turboRedirect('/../html/posts.html?page=0&size=3')">
+      POST
+    </button>
+    <img class="ajax-icon" src="/../images/ajax-icon.svg"/>
+
+  </e-form>
+
+</div>

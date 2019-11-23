@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Guseyn/ehtml-simple-blog-app#readme",
   "dependencies": {
+    "@cuties/async": "^1.0.1",
     "@cuties/created": "^1.0.1",
     "@cuties/cutie": "^1.7.3",
     "@cuties/http": "^1.3.3",

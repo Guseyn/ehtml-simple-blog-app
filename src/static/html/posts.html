@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Blog App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Guseyn">
+    <link rel="shortcut icon" type="image/png" href="/../image/favicon.png">
+    <link rel="stylesheet" href="/../css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="/../css/main.css" type="text/css">
+    <script src="/../js/ehtml.js" type="text/javascript"></script>
+  </head>
+
+  <body class="main">
+    <div class="base">
+      
+      <template is="e-page-with-url" data-url-pattern="/html/posts.html?page={page}&size={size}">
+        <div class="blog-box">
+          <e-json 
+            data-src="/../posts?page=${urlParams.page}&size=${urlParams.size}"
+            data-ajax-icon="#posts-ajax-icon"
+            data-response-name="postsResponse"
+            data-actions-on-response="mapToTemplate('${postsResponse}', '#posts-template');">
+            <img class="ajax-icon" id="posts-ajax-icon" src="/../images/ajax-icon.svg"/>
+            
+            <template id="posts-template" data-object-name="postsResponse">
+              
+              <template is="e-if" data-condition-to-display="${postsResponse.body.posts.length === 0}">
+                <div class="no-content-message">No posts yet</div>
+              </template>
+
+              <template is="e-if" data-condition-to-display="${postsResponse.body.posts.length !== 0}">
+                
+                <template is="e-for-each" data-list-to-iterate="postsResponse.body.posts" data-item-name="post">
+                  <div class="post-box">
+                    <div class="title">
+                      <e-turbolink 
+                        data-text="${post.title}"
+                        data-href="/../html/post.html?id=${post.id}">    
+                      </e-turbolink>
+                    </div>
+                    <div class="user-email" data-text="${post.userEmail}"></div>
+                    <div class="date" data-text="${post.date}"></div>
+                    <div class="content" data-text="${post.content}"></div>
+                  </div>
+                </template>
+
+                <template is="e-if" data-condition-to-display="${urlParams.page * 1 > 0 }">
+                  <e-turbolink class="page-link" data-href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}"><< Show prev. page</e-turbolink>
+                </template>
+                <template is="e-if" data-condition-to-display="${!postsResponse.body.lastPage}">
+                  <e-turbolink class="page-link" data-href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">Show next. page >></e-turbolink>
+                </template>
+
+              </template>
+
+              <e-turbolink class="page-link" data-href="/../html/index.html">Add new post</e-turbolink>
+
+            </template>
+
+          </e-json>
+        </div>
+      </template>
+
+    </div>
+  </body>
+</html>

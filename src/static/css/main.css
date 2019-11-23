@@ -40,7 +40,7 @@ body {
 }
 
 .blog-box {
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   min-height: 150px;
   width: 100%;
   margin-top: 1em;
@@ -55,6 +55,23 @@ body {
 .input-label {
   font-size: 1.5em;
   margin-top: 1em;
+}
+
+.comments-box {
+  border: 1px solid lightgrey;
+  margin-top: 2em;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+.comments-box input, textarea, button {
+  font-size: 1em;
+  padding: 0.2em;
+  border-radius: 0.2em;
+}
+
+.comments-box .input-label {
+  font-size: 1em;
 }
 
 input, textarea, button {
@@ -74,6 +91,77 @@ button {
   margin-top: 1em;
   font-weight: bold;
   cursor: pointer;
+}
+
+a {
+ cursor: pointer;
+ text-decoration: underline; 
+}
+
+.page-link {
+  display: block;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.ajax-icon {
+  height: 48px;
+  width: 48px;
+  margin: 10px auto;
+  display: block;
+}
+
+.not-found {
+  color: red;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.post-box {
+  margin-top: 1em;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.user-email, .date {
+  color: grey;
+  font-size: 0.9em;
+}
+
+.content {
+  margin-top: 0.3em;
+  font-size: 1.3em;
+}
+
+.comment-box {
+  margin-top: 1em;
+}
+
+.comment-content {
+  font-size: 1em;
+}
+
+.no-content-message {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.elm-error {
+  border: 1px solid red;
+}
+
+.message-error {
+  color: red;
+}
+
+.form-message-error {
+  text-align: center;
+  color: red;
+  font-family: sans-serif;
 }
 
 @media only screen and (min-width: 700px) {

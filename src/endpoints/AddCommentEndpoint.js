@@ -32,7 +32,7 @@ class AddCommentEndpoint extends Endpoint {
             new RequestParams(
               request
             ),
-            'index'
+            'postId'
           )
         )
       )

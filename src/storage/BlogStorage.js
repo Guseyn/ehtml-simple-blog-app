@@ -3,46 +3,45 @@
 class BlogStorage {
   constructor () {
     this.posts = []
+    this.postCount = 0
   }
 
   addPost (post) {
-    this.posts.push(post)
-    return {
-      index: this.posts.length - 1,
-      userEmail: post.userEmail,
-      title: post.title,
-      date: post.date,
-      content: post.content
-    }
+    post.comments = []
+    post.id = this.postCount
+    this.posts.unshift(post)
+    this.postCount += 1
+    return post
   }
 
-  addComment (index, comment) {
-    if (!this.posts[index]) {
+  addComment (id, comment) {
+    const post = this.posts.find(p => p.id == id)
+    if (!post) {
       return null
     }
-    this.posts[index].comments = this.posts[index].comments || []
-    this.posts[index].comments.unshift(comment)
+    comment.postId = post.id
+    post.comments.push(comment)
     return comment
   }
 
-  getPost (index) {
-    if (!this.posts[index]) {
+  getPost (id, page = 0, size = 3) {
+    const post = this.posts.find(p => p.id == id)
+    if (!post) {
       return null
     }
-    return {
-      userEmail: this.posts[index].userEmail,
-      title: this.posts[index].title,
-      date: this.posts[index].date,
-      content: this.posts[index].content
-    }
+    return post
   }
 
   getPosts (page = 0, size = 3) {
-    return this.posts
+    const response = { }
+    page = page * 1
+    size = size * 1
+    response.posts = this.posts
       .slice(page * size, (page + 1) * size)
       .map(
         (post) => {
           return {
+            id: post.id,
             userEmail: post.userEmail,
             title: post.title,
             date: post.date,
@@ -50,20 +49,8 @@ class BlogStorage {
           }
         }
       )
-  }
-
-  getComments (index, page = 0, size = 3) {
-    const post = this.posts[index]
-    if (post) {
-      return {
-        userEmail: post.userEmail,
-        title: post.title,
-        date: post.date,
-        content: post.content,
-        comments: post.comments.slice(page * size, (page + 1) * size)
-      }
-    }
-    return null
+    response.lastPage = (page + 1) * size >= this.posts.length
+    return response
   }
 }
 
