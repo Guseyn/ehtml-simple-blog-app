@@ -7,3 +7,5 @@ cd ehtml-simple-blog-app
 npm i
 npm run start
 ```
+
+Then go to http://localhost:8000/
