@@ -14,7 +14,7 @@
   <body class="main">
     <div class="base">
       
-      <template is="e-page-with-url" data-url-pattern="/html/post.html?id={id}">
+      <template is="e-page-with-url" data-url-pattern="/html/post.html?{id}">
         <div class="blog-box">
           
           <e-json 
@@ -37,25 +37,33 @@
                   <div class="content" data-text="${postResponse.body.content}"></div>
                 </div>
                 <div class="comments-box">
+                    <b>Comments:</b>
                     <template is="e-if" data-condition-to-display="${postResponse.body.comments.length === 0}">
-                      No Comments yet. Be the first to comment.
+                      <div id="no-comments-message">No Comments yet. Be the first to comment.</div>
                     </template>
                     <template is="e-if" data-condition-to-display="${postResponse.body.comments.length !== 0}">
-                      <b>Comments:</b>
                       <template is="e-for-each" data-list-to-iterate="${postResponse.body.comments}" data-item-name="comment">
                         <div class="comment-box">
                           <div class="user-email" data-text="${comment.userEmail}"></div> 
                           <div class="comment-content" data-text="${comment.content}"></div> 
                         </div>
-                      </template>
+                      </template>                    
                     </template>
                     
+                    <template id="comment-template" is="e-reusable" data-object-name="comment">
+                      <div class="comment-box">
+                        <div class="user-email" data-text="${comment.userEmail}"></div> 
+                        <div class="comment-content" data-text="${comment.content}"></div> 
+                      </div>
+                    </template>
+
                     <e-form 
                       style="margin-top: 2em;"
                       data-validation-error-message="Enter correct data into the form, please"
                       data-validation-error-class-for-message-box="form-message-error">
                       <div class="input-label">Your email</div>
                       <input
+                        id="email-input"
                         type="email" 
                         name="userEmail"
                         required
@@ -67,6 +75,7 @@
 
                       <div class="input-label">Comment</div>
                       <textarea 
+                        id="comment-text" 
                         required
                         data-validation-error-class-for-element="elm-error"
                         data-validation-error-class-for-message-box="message-error"
@@ -78,7 +87,12 @@
                         data-ajax-icon="#comment-ajax-icon"
                         data-response-name="response"
                         onclick="this.form.submit(this)"
-                        data-actions-on-response="turboRedirect('/../html/post.html?id=${response.body.postId}')"
+                        data-actions-on-response="
+                          mapToTemplate('${response.body}', '#comment-template');
+                          changeValueOf('#email-input', '');
+                          changeValueOf('#comment-text', '');
+                          hideElms('#no-comments-message');
+                        "
                       >
                         Post
                       </button>

@@ -14,7 +14,7 @@
   <body class="main">
     <div class="base">
       
-      <template is="e-page-with-url" data-url-pattern="/html/posts.html?page={page}&size={size}">
+      <template is="e-page-with-url" data-url-pattern="/html/posts.html?{page}&{size}">
         <div class="blog-box">
           <e-json 
             data-src="/../posts?page=${urlParams.page}&size=${urlParams.size}"
