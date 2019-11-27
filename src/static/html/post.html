@@ -37,68 +37,68 @@
                   <div class="content" data-text="${postResponse.body.content}"></div>
                 </div>
                 <div class="comments-box">
-                    <b>Comments:</b>
-                    <template is="e-if" data-condition-to-display="${postResponse.body.comments.length === 0}">
-                      <div id="no-comments-message">No Comments yet. Be the first to comment.</div>
-                    </template>
-                    <template is="e-if" data-condition-to-display="${postResponse.body.comments.length !== 0}">
-                      <template is="e-for-each" data-list-to-iterate="${postResponse.body.comments}" data-item-name="comment">
-                        <div class="comment-box">
-                          <div class="user-email" data-text="${comment.userEmail}"></div> 
-                          <div class="comment-content" data-text="${comment.content}"></div> 
-                        </div>
-                      </template>                    
-                    </template>
-                    
-                    <template id="comment-template" is="e-reusable" data-object-name="comment">
+                  <b>Comments:</b>
+                  <template is="e-if" data-condition-to-display="${postResponse.body.comments.length === 0}">
+                    <div id="no-comments-message">No Comments yet. Be the first to comment.</div>
+                  </template>
+                  <template is="e-if" data-condition-to-display="${postResponse.body.comments.length !== 0}">
+                    <template is="e-for-each" data-list-to-iterate="${postResponse.body.comments}" data-item-name="comment">
                       <div class="comment-box">
                         <div class="user-email" data-text="${comment.userEmail}"></div> 
                         <div class="comment-content" data-text="${comment.content}"></div> 
                       </div>
-                    </template>
+                    </template>                    
+                  </template>
+                    
+                  <template id="comment-template" is="e-reusable" data-object-name="comment">
+                    <div class="comment-box">
+                      <div class="user-email" data-text="${comment.userEmail}"></div> 
+                      <div class="comment-content" data-text="${comment.content}"></div> 
+                    </div>
+                  </template>
 
-                    <e-form 
-                      style="margin-top: 2em;"
-                      data-validation-error-message="Enter correct data into the form, please"
-                      data-validation-error-class-for-message-box="form-message-error">
-                      <div class="input-label">Your email</div>
-                      <input
-                        id="email-input"
-                        type="email" 
-                        name="userEmail"
-                        required
-                        data-validation-pattern="email"
-                        data-validation-bad-format-error-message="This is not proper email address"
-                        data-validation-absence-error-message="Email is required"
-                        data-validation-error-class-for-element="elm-error"
-                        data-validation-error-class-for-message-box="message-error">
+                  <e-form 
+                    style="margin-top: 2em;"
+                    data-validation-error-message="Enter correct data into the form, please"
+                    data-validation-error-class-for-message-box="form-message-error">
+                    <div class="input-label">Your email</div>
+                    <input
+                      id="email-input"
+                      type="email" 
+                      name="userEmail"
+                      required
+                      data-validation-pattern="email"
+                      data-validation-bad-format-error-message="This is not proper email address"
+                      data-validation-absence-error-message="Email is required"
+                      data-validation-error-class-for-element="elm-error"
+                      data-validation-error-class-for-message-box="message-error">
 
-                      <div class="input-label">Comment</div>
-                      <textarea 
-                        id="comment-text" 
-                        required
-                        data-validation-error-class-for-element="elm-error"
-                        data-validation-error-class-for-message-box="message-error"
-                        name="content"></textarea>
+                    <div class="input-label">Comment</div>
+                    <textarea 
+                      id="comment-text" 
+                      required
+                      data-validation-error-class-for-element="elm-error"
+                      data-validation-error-class-for-message-box="message-error"
+                      name="content"></textarea>
 
-                      <button
-                        data-request-url="/../comment/new?postId=${postResponse.body.id}"
-                        data-request-method="POST"
-                        data-ajax-icon="#comment-ajax-icon"
-                        data-response-name="response"
-                        onclick="this.form.submit(this)"
-                        data-actions-on-response="
-                          mapToTemplate('${response.body}', '#comment-template');
-                          changeValueOf('#email-input', '');
-                          changeValueOf('#comment-text', '');
-                          hideElms('#no-comments-message');
-                        "
-                      >
-                        Send
-                      </button>
-                      <img class="ajax-icon" id="comment-ajax-icon" src="/../images/ajax-icon.svg"/>
+                    <button
+                      data-request-url="/../comment/new?postId=${postResponse.body.id}"
+                      data-request-method="POST"
+                      data-ajax-icon="#comment-ajax-icon"
+                      data-response-name="response"
+                      onclick="this.form.submit(this)"
+                      data-actions-on-response="
+                        mapToTemplate('${response.body}', '#comment-template');
+                        changeValueOf('#email-input', '');
+                        changeValueOf('#comment-text', '');
+                        hideElms('#no-comments-message');
+                      "
+                    >
+                      Send
+                    </button>
+                    <img class="ajax-icon" id="comment-ajax-icon" src="/../images/ajax-icon.svg"/>
 
-                    </e-form>
+                  </e-form>
                 </div>
               </template>
             </template>
