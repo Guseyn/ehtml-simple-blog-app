@@ -16,6 +16,7 @@
       
       <template is="e-page-with-url" data-url-pattern="/html/posts.html?{page}&{size}">
         <div class="blog-box">
+
           <e-json 
             data-src="/../posts?page=${urlParams.page}&size=${urlParams.size}"
             data-ajax-icon="#posts-ajax-icon"
@@ -25,13 +26,20 @@
             
             <template id="posts-template" data-object-name="postsResponse">
               
-              <template is="e-if" data-condition-to-display="${postsResponse.body.posts.length === 0}">
+              <template is="e-if" data-condition-to-display="
+                ${postsResponse.body.posts.length === 0}
+              ">
                 <div class="no-content-message">No posts yet</div>
               </template>
+              
+              <template is="e-if" data-condition-to-display="
+                ${postsResponse.body.posts.length !== 0}
+              ">
 
-              <template is="e-if" data-condition-to-display="${postsResponse.body.posts.length !== 0}">
-                
-                <template is="e-for-each" data-list-to-iterate="postsResponse.body.posts" data-item-name="post">
+                <template is="e-for-each"
+                  data-list-to-iterate="postsResponse.body.posts"
+                  data-item-name="post">
+                  
                   <div class="post-box">
                     <div class="title">
                       <e-turbolink 
@@ -43,25 +51,43 @@
                     <div class="date" data-text="${post.date}"></div>
                     <div class="content" data-text="${post.content}"></div>
                   </div>
+
+                </template>
+                
+                <template is="e-if" data-condition-to-display="
+                  ${urlParams.page * 1 > 0 }
+                ">
+
+                  <e-turbolink class="page-link"
+                    data-href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
+                    << Show prev. page
+                  </e-turbolink>
+
                 </template>
 
-                <template is="e-if" data-condition-to-display="${urlParams.page * 1 > 0 }">
-                  <e-turbolink class="page-link" data-href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}"><< Show prev. page</e-turbolink>
-                </template>
-                <template is="e-if" data-condition-to-display="${!postsResponse.body.lastPage}">
-                  <e-turbolink class="page-link" data-href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">Show next. page >></e-turbolink>
+                <template is="e-if"
+                  data-condition-to-display="${!postsResponse.body.lastPage}">
+
+                  <e-turbolink class="page-link"
+                    data-href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
+                    Show next. page >>
+                  </e-turbolink>
+
                 </template>
 
               </template>
 
-              <e-turbolink class="page-link" data-href="/../html/index.html">Add new post</e-turbolink>
+              <e-turbolink class="page-link" data-href="/../html/index.html">
+                Add new post
+              </e-turbolink>
 
             </template>
 
           </e-json>
+          
         </div>
       </template>
-
+      
     </div>
   </body>
 </html>

@@ -15,6 +15,7 @@
     <div class="base">
       
       <template is="e-page-with-url" data-url-pattern="/html/post.html?{id}">
+        
         <div class="blog-box">
           
           <e-json 
@@ -25,29 +26,45 @@
             <img class="ajax-icon" id="post-ajax-icon" src="/../images/ajax-icon.svg"/>
 
             <template id="post-template" data-object-name="postResponse">
+
               <template is="e-if" data-condition-to-display="${postResponse.statusCode === 404}">
                 <div class="not-found">Post Not Found</div>
               </template>
 
-              <template is="e-if" data-condition-to-display="${postResponse.statusCode === 200}">
+              <template is="e-if" data-condition-to-display="
+                ${postResponse.statusCode === 200}
+              ">
+
                 <div class="post-box">
                   <div class="title" data-text="${postResponse.body.title}"></div>
                   <div class="user-email" data-text="${postResponse.body.userEmail}"></div>
                   <div class="date" data-text="${postResponse.body.date}"></div>
                   <div class="content" data-text="${postResponse.body.content}"></div>
                 </div>
+
                 <div class="comments-box">
+                  
                   <b>Comments:</b>
-                  <template is="e-if" data-condition-to-display="${postResponse.body.comments.length === 0}">
+                  <template is="e-if" data-condition-to-display="
+                    ${postResponse.body.comments.length === 0}
+                  ">
                     <div id="no-comments-message">No Comments yet. Be the first to comment.</div>
                   </template>
-                  <template is="e-if" data-condition-to-display="${postResponse.body.comments.length !== 0}">
-                    <template is="e-for-each" data-list-to-iterate="${postResponse.body.comments}" data-item-name="comment">
+
+                  <template is="e-if" data-condition-to-display="
+                    ${postResponse.body.comments.length !== 0}
+                  ">
+
+                    <template is="e-for-each"
+                      data-list-to-iterate="${postResponse.body.comments}"
+                      data-item-name="comment"
+                    >
                       <div class="comment-box">
                         <div class="user-email" data-text="${comment.userEmail}"></div> 
                         <div class="comment-content" data-text="${comment.content}"></div> 
                       </div>
-                    </template>                    
+                    </template>
+
                   </template>
                     
                   <template id="comment-template" is="e-reusable" data-object-name="comment">
@@ -97,19 +114,26 @@
                       Send
                     </button>
                     <img class="ajax-icon" id="comment-ajax-icon" src="/../images/ajax-icon.svg"/>
-
                   </e-form>
+
                 </div>
+
               </template>
+
             </template>
 
           </e-json>
 
         </div>
 
-        <e-turbolink class="page-link" data-href="/../html/posts.html?page=0&size=3">Go To All Posts</e-turbolink>
-        <e-turbolink class="page-link" data-href="/../html/index.html">Add New One</e-turbolink>
-        
+        <e-turbolink class="page-link" data-href="/../html/posts.html?page=0&size=3">
+          Go To All Posts
+        </e-turbolink>
+
+        <e-turbolink class="page-link" data-href="/../html/index.html">
+          Add New One
+        </e-turbolink>
+
       </template>
 
     </div>

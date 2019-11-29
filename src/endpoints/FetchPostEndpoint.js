@@ -53,7 +53,7 @@ class FetchPostEndpoint extends Endpoint {
             )
           )
         )
-      ) 
+      )
     )
   }
 }
