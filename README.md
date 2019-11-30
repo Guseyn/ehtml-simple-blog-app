@@ -1,5 +1,4 @@
-# ehtml-simple-blog-app
-Simple EHTML blog app:
+# Simple EHTML Blog App
 
 ```bash
 git clone git@github.com:Guseyn/ehtml-simple-blog-app.git
