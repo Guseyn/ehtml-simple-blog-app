@@ -15,6 +15,7 @@ class BlogStorage {
   }
 
   addComment (id, comment) {
+    id = id * 1
     const post = this.posts.find(p => p.id === id)
     if (!post) {
       return null
