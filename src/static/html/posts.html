@@ -21,7 +21,9 @@
             data-src="/../posts?page=${urlParams.page}&size=${urlParams.size}"
             data-ajax-icon="#posts-ajax-icon"
             data-response-name="postsResponse"
-            data-actions-on-response="mapToTemplate('${postsResponse}', '#posts-template');">
+            data-actions-on-response="
+              mapToTemplate('#posts-template', postsResponse)
+            ">
             <img class="ajax-icon" id="posts-ajax-icon" src="/../images/ajax-icon.svg"/>
             
             <template id="posts-template" data-object-name="postsResponse">
@@ -37,15 +39,15 @@
               ">
 
                 <template is="e-for-each"
-                  data-list-to-iterate="postsResponse.body.posts"
+                  data-list-to-iterate="${postsResponse.body.posts}"
                   data-item-name="post">
                   
                   <div class="post-box">
                     <div class="title">
-                      <e-turbolink 
+                      <a
                         data-text="${post.title}"
-                        data-href="/../html/post.html?id=${post.id}">    
-                      </e-turbolink>
+                        href="/../html/post.html?id=${post.id}">    
+                      </a>
                     </div>
                     <div class="user-email" data-text="${post.userEmail}"></div>
                     <div class="date" data-text="${post.date}"></div>
@@ -58,28 +60,28 @@
                   ${urlParams.page * 1 > 0 }"
                 >
 
-                  <e-turbolink class="page-link"
-                    data-href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
+                  <a class="page-link"
+                    href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
                     << Show prev. page
-                  </e-turbolink>
+                  </a>
 
                 </template>
 
                 <template is="e-if"
                   data-condition-to-display="${!postsResponse.body.lastPage}">
 
-                  <e-turbolink class="page-link"
-                    data-href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
+                  <a class="page-link"
+                    href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
                     Show next. page >>
-                  </e-turbolink>
+                  </a>
 
                 </template>
 
               </template>
 
-              <e-turbolink class="page-link" data-href="/../html/index.html">
+              <a class="page-link" href="/../html/index.html">
                 Add new post
-              </e-turbolink>
+              <a>
 
             </template>
 

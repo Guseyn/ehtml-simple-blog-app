@@ -47,7 +47,9 @@
       data-ajax-icon=".ajax-icon"
       onclick="this.form.submit(this)"
       data-response-name="response"
-      data-actions-on-response="turboRedirect('/../html/post.html?id=${response.body.id}')">
+      data-actions-on-response="
+        redirect(`/../html/post.html?id=${response.body.id}`)
+      ">
       POST
     </button>
     <img class="ajax-icon" src="/../images/ajax-icon.svg"/>

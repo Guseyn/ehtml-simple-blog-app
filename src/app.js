@@ -24,7 +24,7 @@ new Created(
 ).as('BLOG_STORAGE').after(
   new Backend(
     'http',
-    8000,
+    8008,
     '127.0.0.1',
     new RestApi(
       new CustomIndexEndpoint('./src/static/html/index.html', notFoundEndpoint),

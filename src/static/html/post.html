@@ -22,7 +22,9 @@
             data-src="/../post?id=${urlParams.id}" 
             data-ajax-icon="#post-ajax-icon"
             data-response-name="postResponse"
-            data-actions-on-response="mapToTemplate('${postResponse}', '#post-template');">
+            data-actions-on-response="
+              mapToTemplate('#post-template', postResponse)
+            ">
             <img class="ajax-icon" id="post-ajax-icon" src="/../images/ajax-icon.svg"/>
 
             <template id="post-template" data-object-name="postResponse">
@@ -105,7 +107,7 @@
                       data-response-name="response"
                       onclick="this.form.submit(this)"
                       data-actions-on-response="
-                        mapToTemplate('${response.body}', '#comment-template');
+                        mapToTemplate('#comment-template', response.body);
                         changeValueOf('#email-input', '');
                         changeValueOf('#comment-text', '');
                         hideElms('#no-comments-message');
@@ -126,13 +128,13 @@
 
         </div>
 
-        <e-turbolink class="page-link" data-href="/../html/posts.html?page=0&size=3">
+        <a class="page-link" href="/../html/posts.html?page=0&size=3">
           Go To All Posts
-        </e-turbolink>
+        </a>
 
-        <e-turbolink class="page-link" data-href="/../html/index.html">
+        <a class="page-link" data-href="/../html/index.html">
           Add New One
-        </e-turbolink>
+        </a>
 
       </template>
 
