@@ -103,6 +103,9 @@
                     <button
                       data-request-url="/comment/new?postId=${postResponse.body.id}"
                       data-request-method="POST"
+                      data-request-headers='{
+                        "Content-Type": "application/json"
+                      }'
                       data-ajax-icon="#comment-ajax-icon"
                       data-response-name="response"
                       onclick="this.form.submit(this)"

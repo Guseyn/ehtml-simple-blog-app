@@ -7,8 +7,8 @@ class BlogStorage {
   }
 
   addPost (post) {
-    post.comments = []
     post.id = this.postCount
+    post.comments = []
     this.posts.unshift(post)
     this.postCount += 1
     return post
@@ -25,7 +25,7 @@ class BlogStorage {
     return comment
   }
 
-  getPost (id, page = 0, size = 3) {
+  getPost (id) {
     id = id * 1 
     const post = this.posts.find(p => p.id === id)
     if (!post) {
