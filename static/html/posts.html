@@ -6,24 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Guseyn">
     <link rel="shortcut icon" type="image/png" href="/image/favicon.png">
-    <link rel="stylesheet" href="/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="/css/main.css" type="text/css">
-    <script src="/js/ehtml.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/semanticss.css" type="text/css">
+    <script type="importmap">
+      {
+        "imports": {
+          "#ehtml/": "/js/ehtml/",
+          "#ehtml/main": "/js/ehtml/main.js?v=1a6f54c9"
+        }
+      }
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "#ehtml/": "/js/ehtml/",
+          "#ehtml/main": "/js/ehtml/main.js?v=1a6f54c9"
+        }
+      }
+    </script>
+    <script type="module">import '#ehtml/main'</script>
   </head>
 
-  <body class="main">
-    <div class="base">
-      
-      <template is="e-page-with-url" data-url-pattern="/html/posts.html?{page}&{size}">
-        <div class="blog-box">
-
+  <body>
+    <template is="e-page-with-url" data-url-pattern="/html/posts.html?{page}&{size}">
+      <template is="e-wrapper"
+        data-src="/html/template.html"
+        data-where-to-place="main"
+        data-how-to-place="instead"
+      >
+        <main>
           <e-json 
             data-src="/posts?page=${urlParams.page}&size=${urlParams.size}"
             data-ajax-icon="#posts-ajax-icon"
             data-response-name="postsResponse"
             data-actions-on-response="
               mapToTemplate('#posts-template', postsResponse)
-            ">
+            "
+            data-request-headers='${{
+              "Content-Type": "application/json"
+            }}'>
             <img class="ajax-icon" id="posts-ajax-icon" src="/images/ajax-icon.svg"/>
             
             <template id="posts-template" data-object-name="postsResponse">
@@ -31,65 +51,54 @@
               <template is="e-if" data-condition-to-display="
                 ${postsResponse.body.posts.length === 0}
               ">
-                <div class="no-content-message">No posts yet</div>
+                <h2>No posts yet</h2>
               </template>
               
-              <template is="e-if" data-condition-to-display="
-                ${postsResponse.body.posts.length !== 0}
-              ">
-
-                <template is="e-for-each"
+              <template
+                is="e-if"
+                data-condition-to-display="
+                  ${postsResponse.body.posts.length !== 0}
+                "
+              >
+                <h1>All Posts</h1>
+                <template
+                  is="e-for-each"
                   data-list-to-iterate="${postsResponse.body.posts}"
                   data-item-name="post">
-                  
-                  <div class="post-box">
-                    <div class="title">
-                      <a
-                        data-text="${post.title}"
-                        href="/html/post.html?id=${post.id}">    
-                      </a>
-                    </div>
-                    <div class="user-email" data-text="${post.userEmail}"></div>
-                    <div class="date" data-text="${post.date}"></div>
-                    <div class="content" data-text="${post.content}"></div>
-                  </div>
-
+                  <s-column>
+                    <h2>
+                      <a data-text="${post.title}" href="/html/post.html?id=${post.id}"></a>
+                    </h2>
+                    <b data-text="Email: ${post.userEmail}"></b>
+                    <b data-text="Date: ${post.date}"></b>
+                    <span data-text="${post.content}"></span>
+                    <hr>
+                  </s-column>  
                 </template>
                 
-                <template is="e-if" data-condition-to-display="
+                <template
+                  is="e-if" 
+                  data-condition-to-display="
                   ${urlParams.page * 1 > 0 }"
                 >
-
                   <a class="page-link"
                     href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
                     << Show prev. page
                   </a>
-
                 </template>
 
                 <template is="e-if"
                   data-condition-to-display="${!postsResponse.body.lastPage}">
-
                   <a class="page-link"
                     href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
                     Show next. page >>
                   </a>
-
                 </template>
-
               </template>
-
-              <a class="page-link" href="/html/index.html">
-                Add new post
-              <a>
-
             </template>
-
           </e-json>
-          
-        </div>
+        </main>
       </template>
-      
-    </div>
+    </template>
   </body>
 </html>

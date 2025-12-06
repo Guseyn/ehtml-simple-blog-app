@@ -4,7 +4,8 @@
   "description": "Simple EHTML blog app",
   "main": "index.js",
   "scripts": {
-    "app": "node app"
+    "app": "node app",
+    "ehtml:update": "yes | cp -rf ../../my-projects/EHTML/src/ static/js/ehtml"
   },
   "repository": {
     "type": "git",

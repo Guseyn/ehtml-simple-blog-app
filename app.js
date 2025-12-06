@@ -23,27 +23,27 @@ app.get('/post', (req, res) => {
   if (!post) {
     return res.status(404).json({ message: 'Post Not Found' })
   }
-  res.json(post)
+  res.status(200).json(post)
 })
 
 app.get('/posts', (req, res) => {
   const page = req.query.page || 0
   const size = req.query.size || 3
   const posts = blogStorage.getPosts(page, size)
-  res.json(posts)
+  res.status(200).json(posts)
 })
 
 app.post('/post/new', (req, res) => {
   const post = req.body
   const createdPost = blogStorage.addPost(post)
-  res.json(createdPost)
+  res.status(200).json(createdPost)
 })
 
 app.post('/comment/new', (req, res) => {
   const postId = req.query.postId
   const comment = req.body
   const addedComment = blogStorage.addComment(postId, comment)
-  res.json(addedComment)
+  res.status(200).json(addedComment)
 })
 
 app.listen(port, () => {

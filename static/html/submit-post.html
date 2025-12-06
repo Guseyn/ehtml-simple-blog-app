@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Blog App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Guseyn">
+    <link rel="shortcut icon" type="image/png" href="/image/favicon.png">
+    <link rel="stylesheet" href="/css/semanticss.css" type="text/css">
+    <script type="importmap">
+      {
+        "imports": {
+          "#ehtml/": "/js/ehtml/",
+          "#ehtml/main": "/js/ehtml/main.js?v=1a6f54c9"
+        }
+      }
+    </script>
+    <script type="module">import '#ehtml/main'</script>
+    <style>
+      div:has(.elm-error),
+      div:has(.message-error), 
+      div:has(.form-message-error) {
+        box-shadow: none;
+      }
+      .elm-error {
+        color: red;
+        border: 1px solid red;
+        box-shadow: none;
+      }
+      .message-error,
+      .form-message-error {
+        box-shadow: none;
+        color: red;
+        box-shadow: none;
+        padding: 0;
+        text-align: center;
+      }
+      .ajax-icon {
+        width: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <template is="e-wrapper"
+      data-src="/html/template.html"
+      data-where-to-place="main"
+      data-how-to-place="instead"
+    >
+      <main>
+        <section>
+          <h1>Add New Post</h1>
+          <form
+            is="e-form"
+            data-validation-error-message="Enter correct data into the form, please"
+            data-validation-error-class-for-message-box="form-message-error">
+            <label>
+              Your email:
+              <input
+                type="email" 
+                name="userEmail"
+                required
+                data-validation-pattern="email"
+                data-validation-bad-format-error-message="This is not proper email address"
+                data-validation-absence-error-message="Email is required"
+                data-validation-error-class-for-element="elm-error"
+                data-validation-error-class-for-message-box="message-error">
+            </label>
+
+            <label>
+              Date:
+              <input
+                type="date"
+                name="date"
+                required
+                data-validation-pattern="date"
+                data-validation-absence-error-message="Post date is required"
+                data-validation-error-class-for-element="elm-error"
+                data-validation-error-class-for-message-box="message-error">
+            </label>
+
+            <label>
+              Title:
+              <input
+                type="text"
+                name="title"
+                required
+                data-validation-absence-error-message="Title is required"
+                data-validation-error-class-for-element="elm-error"
+                data-validation-error-class-for-message-box="message-error">
+            </label>
+
+            <label>
+              Content
+              <textarea
+                name="content"
+                required
+                data-validation-error-class-for-element="elm-error"
+                data-validation-error-class-for-message-box="message-error"></textarea>
+            </label>
+
+            <button
+              data-request-url="/../post/new/"
+              data-request-method="POST"
+              data-request-headers='${{
+                "Content-Type": "application/json"
+              }}'
+              data-ajax-icon=".ajax-icon"
+              onclick="this.form.submit(this)"
+              data-response-name="response"
+              data-actions-on-response="
+                redirect(`/../html/post.html?id=${response.body.id}`)
+              ">
+              POST
+            </button>
+            <img class="ajax-icon" src="/../images/ajax-icon.svg"/>
+          </form>
+        </section>
+      </main>
+    </template>
+  </body>
+</html>

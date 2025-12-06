@@ -1,0 +1,923 @@
+/* ==========================================================================
+   Root variables / neutral default theme + responsive settings
+   ========================================================================== */
+
+:root {
+  font-size: var(--font-size-root, 18px);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-root: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-root: 14px;
+  }
+}
+
+@font-face {
+  font-family: "Gelasio";
+  src: url("/font/Gelasio-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Varta";
+  src: url("/font/Varta-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FiraCode";
+  src: url("/font/FiraCode-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  /* Fonts */
+  --font-family-serif: "Gelasio", serif;
+  --font-family-sans: "Varta", sans-serif;
+  --font-family-mono: "FiraCode", monospace;
+
+  /* Base colors - neutral theme */
+  --color-bg: #f6f1e9;
+  --color-surface: #f0e8db;
+  --color-surface-muted: #f6f1e9;
+  --color-text: #2D383A;
+  --color-text-muted: #2D383A;
+  --color-border: var(--color-text);
+
+  /* Accent system */
+  --color-accent: #36454F;
+  --color-accent-soft: #36454F1A;
+  --color-accent-strong: #36454F;
+
+  /* Element-specific tokens (default to accent-ish if not overridden) */
+  --color-link: #2D383A;
+  --color-link-hover: var(--color-accent);
+  --color-focus-ring: rgba(--color-accent);
+
+  --color-header-bg: var(--color-surface);
+  --color-header-border: var(--color-border);
+
+  --color-input-bg: var(--color-surface);
+  --color-input-border: var(--color-border);
+  --color-input-text: var(--color-text);
+  --color-input-placeholder: #aaaaaa;
+
+  --color-table-header-bg: var(--color-surface-muted);
+  --color-table-row-alt: #fafafa;
+  --color-table-border: #e3e3e3;
+
+  --color-details-bg: var(--color-surface);
+  --color-details-border: var(--color-text);
+
+  --color-modal-backdrop: rgba(15, 23, 42, 0.45);
+  --color-tooltip-bg: #111111;
+  --color-tooltip-text: #f5f5f5;
+
+  /* Typography scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+
+  /* Spacing scale */
+  --space-2xs: 0.125rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+
+  /* Radius & elevations */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  --shadow-soft: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-medium: 0 8px 20px rgba(15, 23, 42, 0.15);
+
+  /* Transitions */
+  --transition-fast: 120ms ease-out;
+  --transition-normal: 180ms ease-out;
+
+  /* Layout / responsive tokens */
+  --content-width-max: 72rem;
+
+  /* Logical breakpoints (for reference; media queries use fixed px) */
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+
+  /* Gutters per device */
+  --layout-gutter-mobile: 1rem;
+  --layout-gutter-tablet: 1.25rem;
+  --layout-gutter-desktop: 1.5rem;
+
+  /* Vertical block spacing per device */
+  --layout-block-spacing-mobile: 0.75rem;
+  --layout-block-spacing-tablet: 0.9rem;
+  --layout-block-spacing-desktop: 1rem;
+
+  /* Active layout tokens (overridden in media queries) */
+  --layout-gutter-inline: var(--layout-gutter-desktop);
+  --layout-block-spacing: var(--layout-block-spacing-desktop);
+
+  --header-padding-y: var(--space-md);
+}
+
+/* Mobile layout overrides */
+@media (max-width: 768px) {
+  :root {
+    --layout-gutter-inline: var(--layout-gutter-mobile);
+    --layout-block-spacing: var(--layout-block-spacing-mobile);
+    --font-size-md: 0.95rem;
+  }
+}
+
+/* Tablet layout overrides */
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --layout-gutter-inline: var(--layout-gutter-tablet);
+    --layout-block-spacing: var(--layout-block-spacing-tablet);
+  }
+}
+
+/* ==========================================================================
+   Global reset-ish
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* Limit line length by default */
+body > header,
+body > main,
+body > footer {
+  max-width: var(--content-width-max);
+  margin-inline: auto;
+  padding-inline: var(--layout-gutter-inline);
+}
+
+body > footer {
+  text-align: center;
+  padding: var(--space-2xl);
+  font-family: var(--font-family-sans);
+}
+
+/* ==========================================================================
+   Typography – relative spacing rules
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-block-start: var(--space-xl);
+  margin-block-end: var(--space-sm);
+}
+
+h1 {
+  font-size: var(--font-size-2xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+h4 {
+  font-size: var(--font-size-md);
+}
+
+h5 {
+  font-size: var(--font-size-sm);
+}
+
+h6 {
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: var(--font-family-serif);
+  margin-block-start: 0;
+  margin-block-end: var(--space-md);
+}
+
+/* Heading following heading: tighter */
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h4 + h5,
+h5 + h6 {
+  margin-block-start: var(--space-sm);
+}
+
+/* p if we just want to wrap something with space before*/
+p {
+  margin-block-start: var(--layout-block-spacing);
+}
+
+/* Heading followed by text/list: slight gap */
+header + p,
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+h1 + ul,
+h2 + ul,
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+h1 + ol,
+h2 + ol,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol {
+  margin-block-start: var(--space-xs);
+}
+
+/* Paragraph following paragraph: small gap */
+p + p {
+  margin-block-start: var(--space-sm);
+}
+
+/* Block after block: main vertical rhythm */
+article > * + *,
+section > * + *,
+main > * + * {
+  margin-block-start: var(--layout-block-spacing);
+}
+
+/* ==========================================================================
+   Basic inline / link styles
+   ========================================================================== */
+
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-link-hover);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Divs as shadow boxes (light and unobtrusive)
+   ========================================================================== */
+
+div {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+/* Avoid messing with layout-critical divs inside table, code, etc. */
+table div,
+pre div,
+code div {
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   Header (logo + nav, responsive columns on mobile)
+   ========================================================================== */
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--layout-gutter-inline);
+  padding-block: var(--header-padding-y);
+  background-color: var(--color-header-bg);
+  border: 1px solid var(--color-header-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-md);
+  width: calc(100% - 2rem);
+}
+
+header img {
+  max-height: 3rem;
+  display: block;
+}
+
+header nav {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+header nav a {
+  font-size: var(--font-size-md);
+  border-radius: var(--radius-sm);
+  border-bottom: none;
+  text-decoration: none;
+}
+
+header nav a:hover,
+header nav a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Stack nav in a column on mobile */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  header nav {
+    /*flex-direction: column;*/
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  header nav a {
+    width: 100%;
+    text-decoration: underline;
+  }
+}
+
+/* Tablet: slightly more space */
+@media (min-width: 769px) and (max-width: 1024px) {
+  header nav {
+    gap: var(--space-sm);
+  }
+}
+
+/* ==========================================================================
+   Custom layout elements: s-row, s-column, s-scrollable
+   ========================================================================== */
+
+s-row,
+s-column {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  gap: var(--gap, var(--space-md));
+  align-items: var(--align, center);
+  justify-content: var(--justify-content, center);
+  flex-wrap: wrap;
+}
+
+s-row s-row {
+  width: auto;
+}
+
+/* Row = horizontal on large screens, becomes column on small */
+s-row {
+  flex-direction: row;
+}
+
+/* Children should not shrink; wrap when needed */
+s-row > * {
+  flex: 0 0 auto;
+}
+
+s-row > a:has(img) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* Column = vertical stacking always */
+s-column {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+s-column > * {
+  width: 100%;
+}
+
+/* Mobile: treat rows as columns */
+@media (max-width: 768px) {
+  s-row {
+    flex-direction: column;
+  }
+
+  s-row > * {
+    width: 100%;
+  }
+}
+
+/* Tablet: allow wrapping but keep row feel */
+@media (min-width: 769px) and (max-width: 1024px) {
+  s-row {
+    flex-wrap: wrap;
+  }
+}
+
+/* Scrollable container (for tables, code, etc.) */
+s-scrollable {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+code {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar visually */
+s-scrollable::-webkit-scrollbar,
+code::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+s-scrollable,
+code {
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   s-sidebar – first input as search bar
+   ========================================================================== */
+
+s-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 20rem;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-md);
+  gap: var(--space-sm);
+}
+
+/* First input = search bar */
+s-sidebar > input:first-of-type {
+  width: 100%;
+  padding-inline: var(--space-md);
+  padding-block: var(--space-sm);
+  border-radius: 999px;
+  border: 1px solid var(--color-input-border);
+  background-color: var(--color-input-bg);
+}
+
+/* Everything else underneath with slight spacing */
+s-sidebar > * + * {
+  margin-block-start: var(--space-xs);
+}
+
+/* Mobile: full width bar, lighter border */
+@media (max-width: 768px) {
+  s-sidebar {
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+}
+
+/* ==========================================================================
+   Tables – header/body, scroll-friendly
+   ========================================================================== */
+
+table {
+  width: 100%;
+  border-collapse: separate;         /* allow border-radius */
+  border-spacing: 0;
+  font-size: 1rem;
+  background: #ffffff;
+  border-radius: var(--radius-md);            /* softer corners */
+  overflow: auto;
+  box-sizing: border-box;
+  font-family: var(--font-family-serif);
+  border: 1px solid var(--color-border);
+}
+
+thead tr {
+  background: var(--color-surface-muted); 
+  font-weight: bold;
+}
+
+thead th {
+  font-weight: bold;
+  padding: 1rem;
+  text-align: left;
+  color: #333;
+  border-bottom: 0.063rem solid var(--color-border);
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+tbody tr {
+  background: var(--color-surface);
+  transition: background 0.2s ease;
+  border-radius: var(--radius-md);
+}
+
+tbody tr:last-child > td:first-child {
+  border-bottom-left-radius: var(--radius-md);
+}
+
+tbody tr:last-child > td:last-child {
+  border-bottom-right-radius: var(--radius-md);
+}
+
+tbody tr:nth-child(even) {
+  background: var(--color-surface-muted);
+}
+
+td {
+  padding: 0.875rem 1rem;
+  border-bottom: 0.063rem solid var(--color-border);;
+  color: var(--color-text);
+  vertical-align: top;
+}
+
+/* Last row bottom border fix */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-xs);
+}
+
+/* ==========================================================================
+   Unified controls: inputs, selects, textarea, button
+   ========================================================================== */
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: var(--color-input-text);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding-inline: var(--space-md);
+  padding-block: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-input-border);
+  background-color: var(--color-input-bg);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* When grouped in forms, vertical rhythm */
+form > * + * {
+  margin-block-start: var(--space-sm);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Buttons: accent by default */
+button {
+  padding-inline: var(--space-md);
+  padding-block: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: none;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--color-accent-strong);
+  transform: translateY(-0.5px);
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.6;
+  transform: none;
+}
+
+form button {
+  width: 100%;
+}
+
+/* Inputs inside s-row or s-column get slightly tighter spacing */
+s-row input,
+s-row select,
+s-row textarea,
+s-column input,
+s-column select,
+s-column textarea {
+  margin-block: 0;
+}
+
+/* ==========================================================================
+   Smart lists: items with img + text aligned center
+   ========================================================================== */
+
+ul,
+ol {
+  margin-block: 0 var(--space-md);
+  padding-inline-start: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Turn items into flex rows */
+li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  list-style: none;
+}
+
+li > ul {
+  flex-basis: 100%;
+  margin-left: 1rem; /* optional indent */
+}
+
+/* Synthetic bullet via pseudo-element */
+li::before {
+  content: "•";
+  margin-inline-end: var(--space-xs);
+  color: var(--color-text-muted);
+}
+
+/* Images in list items: do not shrink */
+li > img:first-child {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* Text parts flex nicely */
+li > span,
+li > p,
+li > div {
+  flex: 1 1 auto;
+}
+
+/* Nested lists indent */
+li > ul,
+li > ol {
+  margin-block-start: var(--space-xs);
+  padding-inline-start: 1.25rem;
+}
+
+/* ==========================================================================
+   details / summary – cute accordion
+   ========================================================================== */
+
+details {
+  background-color: var(--color-details-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-details-border);
+  padding: var(--space-sm) var(--space-md);
+}
+
+summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 500;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "▸";
+  display: inline-block;
+  transition: transform var(--transition-normal);
+  font-size: 0.8em;
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+/* Rotate arrow when open */
+details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+/* Animate content reveal */
+details > *:not(summary) {
+  margin-block-start: var(--space-sm);
+  animation: details-open var(--transition-normal);
+}
+
+@keyframes details-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   s-modal – overlay + centered content
+   ========================================================================== */
+
+s-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-modal-backdrop);
+  z-index: 1000;
+}
+
+/* Mark open modals with [open] attribute */
+s-modal[open] {
+  display: flex;
+}
+
+/* First child as content box */
+s-modal > *:first-child {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-medium);
+  padding: var(--space-lg);
+  max-width: min(32rem, 90vw);
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* ==========================================================================
+   s-tooltip – wrapper that uses data-tip
+   ========================================================================== */
+
+s-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Tooltip bubble */
+s-tooltip::before {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, -0.5rem);
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-tooltip-text);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 20;
+}
+
+/* Arrow */
+s-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, 0);
+  border-width: 4px;
+  border-style: solid;
+  border-color: var(--color-tooltip-bg) transparent transparent transparent;
+  opacity: 0;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Show on hover / focus-within */
+s-tooltip:hover::before,
+s-tooltip:focus-within::before,
+s-tooltip:hover::after,
+s-tooltip:focus-within::after {
+  opacity: 1;
+  transform: translate(-50%, -0.25rem);
+}
+
+pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-muted);
+  overflow-x: auto;
+  border: 1px solid var(--color-text);
+}
+
+pre {
+  position: relative;
+}
+
+/* The "Copy" label/button */
+pre::before {
+  content: "Copy";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: var(--color-surface);
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: opacity .2s;
+  color: var(--color-text);
+}
+
+pre.copied::before {
+  content: var(--copy-label, "Copy");
+}
+
+code {
+  font-family: var(--font-family-mono);
+  font-size: 0.95em;
+  background-color: var(--color-surface-muted);
+  padding-inline: var(--space-2xs);
+  padding-block: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-text);
+}
+
+/* Frame wrapper */
+iframe {
+  border-radius: var(--radius-md);
+}
