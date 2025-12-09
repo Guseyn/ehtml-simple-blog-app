@@ -100,7 +100,7 @@
             </label>
 
             <button
-              data-request-url="/../post/new/"
+              data-request-url="/post/new/"
               data-request-method="POST"
               data-request-headers='${{
                 "Content-Type": "application/json"
@@ -109,11 +109,11 @@
               onclick="this.form.submit(this)"
               data-response-name="response"
               data-actions-on-response="
-                redirect(`/../html/post.html?id=${response.body.id}`)
+                redirect(`/html/post.html?id=${response.body.id}`)
               ">
               POST
             </button>
-            <img class="ajax-icon" src="/../images/ajax-icon.svg"/>
+            <img class="ajax-icon" src="/images/ajax-icon.svg"/>
           </form>
         </section>
       </main>

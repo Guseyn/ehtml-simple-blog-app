@@ -79,18 +79,18 @@
                 <template
                   is="e-if" 
                   data-condition-to-display="
-                  ${urlParams.page * 1 > 0 }"
+                    ${urlParams.page * 1 > 0 }
+                  "
                 >
-                  <a class="page-link"
-                    href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
+                  <a href="/html/posts.html?page=${urlParams.page * 1 - 1}&size=${urlParams.size}">
                     << Show prev. page
                   </a>
                 </template>
 
                 <template is="e-if"
-                  data-condition-to-display="${!postsResponse.body.lastPage}">
-                  <a class="page-link"
-                    href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
+                  data-condition-to-display="${!postsResponse.body.lastPage}"
+                >
+                  <a href="/html/posts.html?page=${urlParams.page * 1 + 1}&size=${urlParams.size}">
                     Show next. page >>
                   </a>
                 </template>
